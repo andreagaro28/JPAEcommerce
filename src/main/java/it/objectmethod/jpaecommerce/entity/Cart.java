@@ -1,51 +1,39 @@
+
 package it.objectmethod.jpaecommerce.entity;
 
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import lombok.Data;
 
 @Entity
 @Table(name = "carrello")
+@Data
 public class Cart {
 
+	@GeneratedValue
 	@Id
 	@Column(name = "id_carrello")
-	private Long cartId;
-	@Column(name = "id_utente")
-	private Long userId;
+	private Long id;
 
-	@ManyToMany
-	@JoinTable(name = "carrello_dettaglio", joinColumns = @JoinColumn(name = "id_carrello", referencedColumnName = "id_carrello"), inverseJoinColumns = @JoinColumn(name = "id_articolo", referencedColumnName = "id_articolo"))
-	private List<Articles> articlesLIst;
+	@ManyToOne
+	@JoinColumn(name = "id_utente")
+	private Login userId;
 
-	public List<Articles> getArticlesLIst() {
-		return articlesLIst;
-	}
+//	@ManyToMany
+//	@JoinTable(name = "carrello_dettaglio", joinColumns = @JoinColumn(name = "id_carrello"), inverseJoinColumns = @JoinColumn(name = "id_articolo"))
+//	private List<Articles> articleList;
 
-	public void setArticlesLIst(List<Articles> articlesLIst) {
-		this.articlesLIst = articlesLIst;
-	}
-
-	public Long getCartId() {
-		return cartId;
-	}
-
-	public void setCartId(Long cartId) {
-		this.cartId = cartId;
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+	@OneToMany
+	@JoinColumn(name = "id_carrello")
+	private List<CartDetail> cartList;
 
 }

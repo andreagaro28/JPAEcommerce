@@ -1,6 +1,7 @@
 package it.objectmethod.jpaecommerce.repo;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +15,6 @@ public interface ArticleRepo extends JpaRepository<Articles, Long> {
 	@Query(value = "select x from Articles x")
 	public List<Articles> getArticles();
 
-	public Articles findDistinctById(Long id);
+	public Optional<Articles> findDistinctById(Long id);
 
 }
