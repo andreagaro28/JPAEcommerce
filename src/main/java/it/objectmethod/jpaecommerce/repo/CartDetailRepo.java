@@ -18,11 +18,6 @@ public interface CartDetailRepo extends JpaRepository<CartDetail, Long> {
 
 	@Modifying
 	@Transactional
-	@Query(value = "insert into carrello_dettaglio (quantita, id_articolo, id_carrello) values (?1, ?2, ?3)", nativeQuery = true)
-	public void insertIntoCart(int quantity, Long articleId, Long cartId);
-
-	@Modifying
-	@Transactional
 	@Query(value = "delete from CartDetail cd where cd.cart.id = ?1 and cd.articleId.id = ?2")
 	public void deleteArticleInCart(Long cartId, Long articleId);
 

@@ -28,10 +28,6 @@ public class Cart {
 	@JoinColumn(name = "id_utente")
 	private Login userId;
 
-//	@ManyToMany
-//	@JoinTable(name = "carrello_dettaglio", joinColumns = @JoinColumn(name = "id_carrello"), inverseJoinColumns = @JoinColumn(name = "id_articolo"))
-//	private List<Articles> articleList;
-
 	@OneToMany
 	@JoinColumn(name = "id_carrello")
 	private List<CartDetail> cartList;

@@ -28,9 +28,9 @@ public class CartDetailController {
 		cartDetServ.updateCart(quantity, articleId, cartId, userId);
 	}
 
-	@PostMapping("/insert/{quantity}/{articleId}/{cartId}")
-	public void insertIntoCart(@PathVariable int quantity, @PathVariable Long articleId, @PathVariable Long cartId) {
-		cartDetServ.insertIntoCart(quantity, articleId, cartId);
+	@PostMapping("/insert/{quantity}/{articleId}/{userId}")
+	public void insertIntoCart(@PathVariable int quantity, @PathVariable Long articleId, @PathVariable Long userId) {
+		cartDetServ.insertIntoCart(quantity, articleId, userId);
 	}
 
 	@PostMapping("/delete/{cartId}/{articleId}")

@@ -2,6 +2,7 @@ package it.objectmethod.jpaecommerce.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,6 +19,7 @@ public class CartDetail {
 
 	@Column(name = "id_carrello_dettaglio")
 	@Id
+	@GeneratedValue
 	private Long id;
 
 	@Column(name = "quantita")
