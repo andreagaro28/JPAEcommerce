@@ -3,6 +3,8 @@ package it.objectmethod.jpaecommerce.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +22,13 @@ public class OrderController {
 	private OrderService orderServ;
 
 	@PostMapping("/{userId}")
-	public List<OrderDTO> getOrderByUserId(@PathVariable Long userId) {
+	public ResponseEntity<List<OrderDTO>> getOrderByUserId(@PathVariable Long userId) {
 		List<OrderDTO> orderList = orderServ.getOrderByUserId(userId);
-		return orderList;
+		ResponseEntity<List<OrderDTO>> resp = new ResponseEntity<>(orderList, HttpStatus.OK);
+		if (orderList.isEmpty()) {
+			resp = new ResponseEntity<>(orderList, HttpStatus.NO_CONTENT);
+		}
+		return resp;
 	}
 
 	@PostMapping("/update/{userId}")

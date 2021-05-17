@@ -3,6 +3,7 @@ package it.objectmethod.jpaecommerce.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,14 +22,25 @@ public class ArticleController {
 
 	@PostMapping("/all")
 	public ResponseEntity<List<ArticleDTO>> getArticles() {
-		ResponseEntity<List<ArticleDTO>> articleListDto = articleServ.getArticles();
-		return articleListDto;
+		List<ArticleDTO> articleListDto = articleServ.getArticles();
+		ResponseEntity<List<ArticleDTO>> resp = null;
+		if (articleListDto.isEmpty()) {
+			resp = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} else {
+			resp = new ResponseEntity<>(articleListDto, HttpStatus.OK);
+		}
+		return resp;
 	}
 
 	@PostMapping("/{id}")
 	public ResponseEntity<ArticleDTO> findArticleById(@PathVariable("id") Long id) {
-		ResponseEntity<ArticleDTO> article = articleServ.findDistinctById(id);
-		return article;
+		ArticleDTO article = articleServ.findDistinctById(id);
+		ResponseEntity<ArticleDTO> resp = new ResponseEntity<>(article, HttpStatus.OK);
+
+		if (article == null) {
+			resp = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return resp;
 	}
 
 }

@@ -1,6 +1,8 @@
 package it.objectmethod.jpaecommerce.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +19,13 @@ public class CartDetailController {
 	private CartDetailService cartDetServ;
 
 	@PostMapping("/{userId}")
-	public CompleteCartDTO findByUserId(@PathVariable("userId") Long userId) {
+	public ResponseEntity<CompleteCartDTO> findByUserId(@PathVariable("userId") Long userId) {
 		CompleteCartDTO cartDetList = cartDetServ.findByUserId(userId);
-		return cartDetList;
+		ResponseEntity<CompleteCartDTO> resp = new ResponseEntity<>(cartDetList, HttpStatus.OK);
+		if (cartDetList == null) {
+			resp = new ResponseEntity<>(cartDetList, HttpStatus.NO_CONTENT);
+		}
+		return resp;
 	}
 
 	@PostMapping("/update/{quantity}/{articleId}/{cartId}/{userId}")

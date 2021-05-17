@@ -1,6 +1,7 @@
 package it.objectmethod.jpaecommerce.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,14 @@ public class LoginController {
 
 	@PostMapping("login")
 	public ResponseEntity<UserDTO> login(@RequestBody LoginDTO userLogin) {
-		ResponseEntity<UserDTO> user = logService.login(userLogin);
-		return user;
+		UserDTO user = logService.login(userLogin);
+		ResponseEntity<UserDTO> resp = null;
+		if (user == null) {
+			resp = new ResponseEntity<>(user, HttpStatus.NO_CONTENT);
+		} else {
+			resp = new ResponseEntity<>(user, HttpStatus.OK);
+
+		}
+		return resp;
 	}
 }

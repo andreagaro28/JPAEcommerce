@@ -58,6 +58,6 @@ public class CartDetailService {
 	}
 
 	public void deleteArticleInCart(Long cartId, Long articleId) {
-		cartDetRep.deleteArticleInCart(cartId, articleId);
+		cartDetRep.deleteByCartIdAndArticleIdId(cartId, articleId);
 	}
 }
