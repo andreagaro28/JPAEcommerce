@@ -34,7 +34,7 @@ public class CartDetailService {
 		return cartDetailList;
 	}
 
-	public void updateCart(int quantity, Long articleId, Long cartId, Long userId) {
+	public void updateCart(int quantity, Long articleId, Long userId) {
 		Optional<CartDetail> cartOpt = cartDetRep.findByCartUserIdIdAndArticleIdId(userId, articleId);
 		CartDetail cartDet = null;
 		if (cartOpt.isPresent()) {
@@ -42,7 +42,7 @@ public class CartDetailService {
 			cartDet.setQuantita(quantity);
 			cartDetRep.save(cartDet);
 		} else {
-			insertIntoCart(quantity, articleId, cartId);
+			insertIntoCart(quantity, articleId, userId);
 		}
 	}
 
@@ -57,7 +57,8 @@ public class CartDetailService {
 
 	}
 
-	public void deleteArticleInCart(Long cartId, Long articleId) {
-		cartDetRep.deleteByCartIdAndArticleIdId(cartId, articleId);
+	public void deleteArticleInCart(Long userId, Long articleId) {
+		Cart cart = cartRep.findByUserIdId(userId);
+		cartDetRep.deleteByCartIdAndArticleIdId(cart.getId(), articleId);
 	}
 }
