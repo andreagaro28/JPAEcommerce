@@ -2,6 +2,7 @@ package it.objectmethod.jpaecommerce.service;
 
 import java.util.Calendar;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.auth0.jwt.JWT;
@@ -9,10 +10,15 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 
+import it.objectmethod.jpaecommerce.entity.Cart;
 import it.objectmethod.jpaecommerce.entity.Login;
+import it.objectmethod.jpaecommerce.repo.CartRepo;
 
 @Component
 public class JWTService {
+
+	@Autowired
+	private CartRepo cartRep;
 
 	private static final String MY_SECRET_JWT_KEY = "my-secret-jwt-key";
 
@@ -27,6 +33,8 @@ public class JWTService {
 		calendar.set(Calendar.MINUTE, minute);
 
 		Algorithm algo = Algorithm.HMAC256(MY_SECRET_JWT_KEY);
+		Cart cart = cartRep.findByUserIdId(user.getId());
+
 		String token = JWT.create().withClaim("userId", user.getId()).withClaim("userName", user.getUserName())
 				.withExpiresAt(calendar.getTime()).sign(algo);
 		return token;

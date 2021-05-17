@@ -31,7 +31,7 @@ public class AuthenticationFilter implements Filter {
 		HttpServletResponse httpResp = (HttpServletResponse) response;
 		String url = httpReq.getRequestURI();
 
-		if (url.endsWith("login")) {
+		if (url.endsWith("login") || url.endsWith("article-id") || url.endsWith("articles/all")) {
 			System.out.println("RICHIESTA APPROVATA!");
 			chain.doFilter(request, response);
 		} else {

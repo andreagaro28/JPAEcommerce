@@ -32,7 +32,7 @@ public class ArticleController {
 		return resp;
 	}
 
-	@PostMapping("/{id}")
+	@PostMapping("/{id}/article-id")
 	public ResponseEntity<ArticleDTO> findArticleById(@PathVariable("id") Long id) {
 		ArticleDTO article = articleServ.findDistinctById(id);
 		ResponseEntity<ArticleDTO> resp = new ResponseEntity<>(article, HttpStatus.OK);
