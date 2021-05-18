@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import it.objectmethod.jpaecommerce.service.JWTService;
 
 @Component
-@Order(1)
+@Order(2)
 public class AuthenticationFilter implements Filter {
 
 	@Autowired
