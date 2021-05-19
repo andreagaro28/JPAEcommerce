@@ -34,12 +34,12 @@ public class LoginService {
 		}
 
 		Login user = optUser.get();
-		Cart cartCheck = cartRep.findByUserIdId(user.getId());
+		Cart cartCheck = cartRep.findByUserId(user.getId());
 
 		if (cartCheck == null) {
 			System.out.println("CREAZIONE NUOVO CARRELLO");
 			Cart cart = new Cart();
-			cart.setUserId(user);
+			cart.setUser(user);
 			cartRep.save(cart);
 		}
 

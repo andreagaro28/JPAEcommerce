@@ -26,7 +26,7 @@ public class Cart {
 
 	@ManyToOne
 	@JoinColumn(name = "id_utente")
-	private Login userId;
+	private Login user;
 
 	@OneToMany
 	@JoinColumn(name = "id_carrello")

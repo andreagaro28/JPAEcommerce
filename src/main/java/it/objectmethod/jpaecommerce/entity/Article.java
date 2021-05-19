@@ -11,7 +11,7 @@ import lombok.Data;
 @Entity
 @Table(name = "articolo")
 @Data
-public class Articles {
+public class Article {
 
 	@Column(name = "id_articolo")
 	@GeneratedValue

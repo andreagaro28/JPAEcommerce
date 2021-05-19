@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.objectmethod.jpaecommerce.entity.Articles;
+import it.objectmethod.jpaecommerce.entity.Article;
 import it.objectmethod.jpaecommerce.entity.Cart;
 import it.objectmethod.jpaecommerce.entity.CartDetail;
 import it.objectmethod.jpaecommerce.repo.ArticleRepo;
@@ -30,12 +30,12 @@ public class CartDetailService {
 	private ArticleRepo artRep;
 
 	public CompleteCartDTO findByUserId(Long userId) {
-		CompleteCartDTO cartDetailList = cartMapper.toDto(cartRep.findByUserIdId(userId));
+		CompleteCartDTO cartDetailList = cartMapper.toDto(cartRep.findByUserId(userId));
 		return cartDetailList;
 	}
 
 	public void updateCart(int quantity, Long articleId, Long userId) {
-		Optional<CartDetail> cartOpt = cartDetRep.findByCartUserIdIdAndArticleIdId(userId, articleId);
+		Optional<CartDetail> cartOpt = cartDetRep.findByCartUserIdAndArticleId(userId, articleId);
 		CartDetail cartDet = null;
 		if (cartOpt.isPresent()) {
 			cartDet = cartOpt.get();
@@ -48,17 +48,17 @@ public class CartDetailService {
 
 	public void insertIntoCart(int quantity, Long articleId, Long userId) {
 		CartDetail cartDet = new CartDetail();
-		Cart cart = cartRep.findByUserIdId(userId);
-		Optional<Articles> article = artRep.findDistinctById(articleId);
+		Cart cart = cartRep.findByUserId(userId);
+		Optional<Article> article = artRep.findDistinctById(articleId);
 		cartDet.setQuantita(quantity);
 		cartDet.setCart(cart);
-		cartDet.setArticleId(article.get());
+		cartDet.setArticle(article.get());
 		cartDetRep.save(cartDet);
 
 	}
 
 	public void deleteArticleInCart(Long userId, Long articleId) {
-		Cart cart = cartRep.findByUserIdId(userId);
-		cartDetRep.deleteByCartIdAndArticleIdId(cart.getId(), articleId);
+		Cart cart = cartRep.findByUserId(userId);
+		cartDetRep.deleteByCartIdAndArticleId(cart.getId(), articleId);
 	}
 }

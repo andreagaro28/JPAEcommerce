@@ -15,9 +15,11 @@ import it.objectmethod.jpaecommerce.entity.Login;
 import it.objectmethod.jpaecommerce.service.JWTService;
 import it.objectmethod.jpaecommerce.service.OrderService;
 import it.objectmethod.jpaecommerce.service.dto.OrderDTO;
+import lombok.extern.log4j.Log4j2;
 
 @RestController
 @RequestMapping("/order")
+@Log4j2
 public class OrderController {
 
 	@Autowired
@@ -29,6 +31,7 @@ public class OrderController {
 	@PostMapping("/user")
 	public ResponseEntity<List<OrderDTO>> getOrderByUserId(@RequestHeader("auth-token") String authToken) {
 		Login user = jwtServ.getUserByToken(authToken);
+		log.info("Method GET ORDER. User {}, id {}, requires orders", user.getUserName(), user.getId());
 		List<OrderDTO> orderList = orderServ.getOrderByUserId(user.getId());
 		ResponseEntity<List<OrderDTO>> resp = new ResponseEntity<>(orderList, HttpStatus.OK);
 		if (orderList.isEmpty()) {
@@ -40,6 +43,7 @@ public class OrderController {
 	@PostMapping("/update")
 	public void insertOrder(@RequestParam String numOrder, @RequestHeader("auth-token") String authToken) {
 		Login user = jwtServ.getUserByToken(authToken);
+		log.info("Method UPDATE ORDER. User {}, id {}, requires orders", user.getUserName(), user.getId());
 		orderServ.insertOrder(numOrder, user.getId());
 	}
 }

@@ -13,10 +13,10 @@ import it.objectmethod.jpaecommerce.entity.CartDetail;
 @Repository
 public interface CartDetailRepo extends JpaRepository<CartDetail, Long> {
 
-	public Optional<CartDetail> findByCartUserIdIdAndArticleIdId(Long userId, Long articleId);
+	public Optional<CartDetail> findByCartUserIdAndArticleId(Long userId, Long articleId);
 
 	@Modifying
 	@Transactional
-	public void deleteByCartIdAndArticleIdId(Long cartId, Long articleId);
+	public void deleteByCartIdAndArticleId(Long cartId, Long articleId);
 
 }

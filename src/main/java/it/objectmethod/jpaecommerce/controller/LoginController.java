@@ -13,8 +13,10 @@ import it.objectmethod.jpaecommerce.service.LoginService;
 import it.objectmethod.jpaecommerce.service.dto.LoginDTO;
 import it.objectmethod.jpaecommerce.service.dto.UserDTO;
 import it.objectmethod.jpaecommerce.service.mapper.UserMapper;
+import lombok.extern.log4j.Log4j2;
 
 @RestController
+@Log4j2
 public class LoginController {
 
 	@Autowired
@@ -28,14 +30,14 @@ public class LoginController {
 
 	@PostMapping("login")
 	public ResponseEntity<UserDTO> login(@RequestBody LoginDTO userLogin) {
-
+		log.info("!!!---Method LOGIN START, user {} is trying to log", userLogin.getUserName());
 		UserDTO user = logService.login(userLogin);
 		ResponseEntity<UserDTO> resp = null;
 		if (user == null) {
 			resp = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} else {
 			resp = new ResponseEntity<>(user, HttpStatus.OK);
-
+			log.info("User {}, id {}, has just logged", user.getUserName(), user.getId());
 		}
 		Login userEntity = logMap.toEntity(user);
 		String token = jwtServ.CreateJWTToken(userEntity);

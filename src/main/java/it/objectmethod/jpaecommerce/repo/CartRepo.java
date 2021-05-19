@@ -8,6 +8,6 @@ import it.objectmethod.jpaecommerce.entity.Cart;
 @Repository
 public interface CartRepo extends JpaRepository<Cart, Long> {
 
-	public Cart findByUserIdId(Long userId);
+	public Cart findByUserId(Long userId);
 
 }

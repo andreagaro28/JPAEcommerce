@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.objectmethod.jpaecommerce.entity.Articles;
+import it.objectmethod.jpaecommerce.entity.Article;
 import it.objectmethod.jpaecommerce.repo.ArticleRepo;
 import it.objectmethod.jpaecommerce.service.dto.ArticleDTO;
 import it.objectmethod.jpaecommerce.service.mapper.ArticleMapper;
@@ -26,7 +26,7 @@ public class ArticleService {
 	}
 
 	public ArticleDTO findDistinctById(Long id) {
-		Optional<Articles> optArticle = articleRepo.findDistinctById(id);
+		Optional<Article> optArticle = articleRepo.findDistinctById(id);
 		ArticleDTO articleDto = null;
 		if (optArticle.isPresent()) {
 			articleDto = mapper.toDto(optArticle.get());

@@ -55,12 +55,12 @@ public class OrderService {
 	}
 
 	private void insertOrderRow(Long userId, Order order) {
-		Cart cart = cartRepo.findByUserIdId(userId);
+		Cart cart = cartRepo.findByUserId(userId);
 		List<CartDetail> cartList = cart.getCartList();
 
 		for (CartDetail element : cartList) {
 			OrderRow orderRow = new OrderRow();
-			orderRow.setArticle(element.getArticleId());
+			orderRow.setArticle(element.getArticle());
 			orderRow.setQuantity(element.getQuantita());
 			orderRow.setOrderId(order.getId());
 			orderRowRepo.save(orderRow);

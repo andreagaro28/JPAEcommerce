@@ -28,7 +28,7 @@ public class CartDetail {
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_articolo")
-	private Articles articleId;
+	private Article article;
 
 	@JsonIgnore
 	@ManyToOne

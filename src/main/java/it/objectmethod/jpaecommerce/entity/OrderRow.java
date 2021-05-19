@@ -28,5 +28,5 @@ public class OrderRow {
 
 	@OneToOne
 	@JoinColumn(name = "id_articolo")
-	private Articles article;
+	private Article article;
 }

@@ -33,7 +33,7 @@ public class JWTService {
 		calendar.set(Calendar.MINUTE, minute);
 
 		Algorithm algo = Algorithm.HMAC256(MY_SECRET_JWT_KEY);
-		Cart cart = cartRep.findByUserIdId(user.getId());
+		Cart cart = cartRep.findByUserId(user.getId());
 
 		String token = JWT.create().withClaim("userId", user.getId()).withClaim("userName", user.getUserName())
 				.withExpiresAt(calendar.getTime()).sign(algo);

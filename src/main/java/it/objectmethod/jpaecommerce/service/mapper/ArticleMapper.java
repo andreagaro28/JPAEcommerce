@@ -2,15 +2,15 @@ package it.objectmethod.jpaecommerce.service.mapper;
 
 import org.mapstruct.Mapper;
 
-import it.objectmethod.jpaecommerce.entity.Articles;
+import it.objectmethod.jpaecommerce.entity.Article;
 import it.objectmethod.jpaecommerce.service.dto.ArticleDTO;
 
 @Mapper(componentModel = "spring")
-public interface ArticleMapper extends EntityMapper<ArticleDTO, Articles> {
+public interface ArticleMapper extends EntityMapper<ArticleDTO, Article> {
 
 	@Override
-	ArticleDTO toDto(Articles entity);
+	ArticleDTO toDto(Article entity);
 
 	@Override
-	Articles toEntity(ArticleDTO dto);
+	Article toEntity(ArticleDTO dto);
 }
